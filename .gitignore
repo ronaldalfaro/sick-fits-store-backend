@@ -1,0 +1,9 @@
+.DS_STORE
+
+node_modules
+package-lock.json
+yarn.lock
+
+.env
+/build
+.next
