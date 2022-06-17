@@ -21,6 +21,9 @@ export default function Home() {
               }
             }
           }
+          User: _allUsersMeta {
+            count
+          }
         }
       `}
     />
