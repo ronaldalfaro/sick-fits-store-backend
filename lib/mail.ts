@@ -24,7 +24,7 @@ function makeANiceEmail(text: string): string {
         </div>
     `;
 }
-
+// jason to typescript type in https://jvilk.com/MakeTypes/
 interface MailResponse {
   message: string;
 }
@@ -33,14 +33,15 @@ export async function sendPasswordResetEmail(
   resetToken: string,
   to: string
 ): Promise<void> {
-  const info = (await transporter.sendMail({
+  const info: MailResponse = (await transporter.sendMail({
     to,
     from: 'test@example.com',
     subject: 'Your password reset token',
     html: makeANiceEmail(`Your password reset token is here! 
     <a href="${process.env.FRONTEND_URL}/reset?token=${resetToken}">Click here to reset</a>
 `),
-  })) as MailResponse;
+  })) as unknown as MailResponse;
+  console.log(info);
   if (process.env.MAIL_USER.includes('ethereal.email')) {
     console.log(`Message Sent! Preview it at ${getTestMessageUrl(info)}`);
   }
