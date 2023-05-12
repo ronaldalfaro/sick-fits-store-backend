@@ -11,6 +11,7 @@ import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { CartItem } from './schemas/CartItem';
+import { extendGraphqlSchema } from './mutations';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits';
@@ -61,12 +62,12 @@ export default withAuth(
       ProductImage,
       CartItem,
     }),
+    extendGraphqlSchema,
     ui: {
       // show the UI only for people who pass this test
-      isAccessAllowed: ({ session }) =>
-        // console.log(session);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        !!session?.data,
+      isAccessAllowed: ({ session }) => !!session?.data,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      //!!session?.data,
     },
     // add session values here
     session: withItemData(statelessSessions(sessionConfig), {
